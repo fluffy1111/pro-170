@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>AR TOY STORE</title>
+        <script src="https://aframe.io/releases/0.6.0/aframe.min.js"> </script>
+        <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar.js"> </script>
+        <link rel="stylesheet"
+         href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+         crossorigin="anonymous"/>
+        <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <script src="https://raw.githack.com/fcor/arjs-gestures/master/dist/gestures.js"></script>
+        <link href="./style.css" rel="stylesheet"/>
+        <script src="./js/addButtons.js"></script>
+        <script src="./js/handler.js"></script>
+        <script src="./js/addMarker.js"></script>
+        <script>
+            var firebaseConfig = {
+                apiKey: "AIzaSyBd-xTJ0gsMojx3VdW2nOaQig-5IWhGN54",
+                authDomain: "pro-169.firebaseapp.com",
+                projectId: "pro-169",
+                storageBucket: "pro-169.appspot.com",
+                messagingSenderId: "1029890883314",
+                appId: "1:1029890883314:web:e10f4183e3ccaa71bc5a6b"
+            };
+
+            firebase.initializeApp(firebaseConfig);
+            firebase.analytics();
+        </script>
+    </head>
+    <body style="margin : 0px; overflow: hidden;">
+        <a-scene 
+          embedded vr-mode-ui="enabled: false"     
+          arjs="sourceType: webcam; sourceWidth:1280; sourceHeight:960; displayWidth: 1280; displayHeight: 960;debugUIEnabled: false;"
+          gesture-detector button-1-2>
+            <!--camera-->
+            <a-entity camera></a-entity>
+
+            <a-assets>
+                <a-asset-item id="pizza-gltf" src="assets/crow_toy/scene.gltf" ></a-asset-item>
+            </a-assets>
+            <!--marker-->
+            <a-marker id="pizza-marker" type="pattern" url="assets/pattern-pizza.patt" cursor="rayOrigin: mouse">
+                <a-entity id="pizza-3D-model" gltf-model="#pizza-gltf" position="-1 0 0" scale="0.05 0.05 0.05" gesture-handler></a-entity>          
+                        
+                <!--ingredients-->
+                <a-plane position="0 0 0" width="1.5" height="1.5" rotation="-90 0 0">
+                    <a-plane position="0 0.89 0.02" width="1.49" height="0.3" rotation="0 0 0" color="#F0C30F">
+                    <a-entity position="0 0 0.1" rotation="0 0 0"
+                        text="font:monoid;value:PIZZA MARGHERITA;color:black;width: 1.8;height:1;align:center;"></a-entity>
+                    </a-plane>
+
+                    <a-entity position="0 0 0.1" rotation="0 0 0"
+                    text="color: black; align: center; width: 2; font: monoid;
+                        value: Tomato sauce\n\nMozzarella cheese\n\nParmesan cheese (optional)\n\nFresh Basil\n\nOlive oil\n\nBlack pepper (optional)">
+                    </a-entity>
+                </a-plane>
+
+            </a-marker>
+            <!--button main div-->
+            <div id="button-div"></div>
+        </a-scene>
+    </body>
+</html>
